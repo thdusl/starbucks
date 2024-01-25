@@ -1,0 +1,709 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* { margin: 0 ; padding:0; box-sizing: border-box};
+li { list-style: none;}
+a { text-decoration: none; color: #333; display:block; }
+img { width: 100%; }
+html, body {   }
+body, a {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+/* 미디어 쿼리 - 분기점(breakpoint) - 모바일 버전 */
+@media screen and (min-width:360px) {
+    li { list-style: none;}
+    header {
+        width:100%;
+        height:70px;
+        background-color: #f6f5ef;
+        padding: 0 3%;
+    }
+    header .centerBox {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header .centerBox .logo {
+        /* 로고가 찌그러지지 않도록 고정크기로 지정함 */
+        width: 45px;  height: 45px;
+    }
+    header .centerBox .menu_area .header_icon ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header .centerBox .menu_area .header_icon ul li {
+        /* ul 가로길이 20퍼 맞춰서 아이콘 사이즈 조정 */
+        width: 20%;
+    }
+    header .centerBox .menu_area .topMenu {
+        display: none;  /*안보임*/
+    }
+    header .centerBox .menu_area .menu {
+        display: none;  /*안보임*/
+    }
+    /* 모바일의 centerBox의 자식객체들은 열기준 줄바꿈 X */
+    section .centerBox {
+        display: flex;
+        flex-flow: column nowrap;
+        /* 열기준(column)일때 세로 가운데 정렬 */
+        /* justify-content: center; */
+    }
+    /* 모바일의 a태그(버튼)은 모두 같은 스타일 적용 */
+    section a {
+        border:2px solid #1a3c34;
+        width: 38vw;
+        line-height: 10vw;
+        color: #1a3c34;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center ;
+        border-radius: 3px;
+        margin-top: 5vw;
+    }
+    section.s1 {
+        width: 100%;
+        height: 255vw;
+        padding:18vw 16vw; /*위아래 / 왼오*/
+        background-image: url(../img_m/2024_m_newYear_top_bg.jpg);
+        /* cover는 이미지를 요소를 모두 덮도록 너비 , 높이 모두 다 확대하거나 축소해서 이미지를 맞추게 됩니다. */ 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    section.s1 .pc_detail, section.s1 .pc_drink{
+        display: none;
+    }
+    /* 색션 로고 여백으로 사이즈 줄임*/
+    section.s1 .moment {
+        width:41vw;
+        margin:7vw auto;
+    }
+    section.s1 .drink {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+    section.s2 {
+        width:100%;
+        /* s2의 position: absolute로 인해 section.s3와 겹치면서 가려지기 때문에 높이를 설정함 */
+        height: 140px;
+        /* 자식객체가 겹칠때 기준이 s2가 되라고 함 */
+        position:relative;
+    }
+    /* s2의 .centerBox와 s2_bg가 겹침 (자식 선택자)*/
+    section.s2 > div {
+        width: 100%;
+        height: 140px;
+        position: absolute;
+    }
+    /* s2의 배경 */
+    section.s2 .s2_bg .black_bg {
+        width: 100%;
+        height: 70px;
+        background-color: #111;
+    }
+    section.s2 .s2_bg .white_bg {
+        width: 100%;
+        height: 70px;
+        background-color: #f6f5ef;
+    }
+    /* s2의 centerBox의 .notice와 .promotion 둘 다 선택 (자식 선택자) */
+    section.s2 .centerBox > div {
+        /* 패딩 높이가 이상해서 조정함 */
+        height: 70px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        /* 세로 가운데 정렬 */
+        align-items: center;
+        padding: 0 10vw;
+        color: #fff;
+
+    }
+    section.s2 .centerBox .notice div {
+        padding:0;
+    }
+    /* 높이 맞추려고 내가 추가함 */
+    section.s2 .centerBox .notice .mobile_title {
+        padding-top: 3%;
+    }
+    /* 모바일에서는 안보이게 함 */
+    section.s2 h3 {
+        display: none;
+    }
+    section.s2 div p {
+        width: 75%;
+        padding-left: 8%;
+        /* 말줄임 */
+        overflow: hidden;
+        white-space: nowrap;
+        /* 넘치면 줄여줌 */
+        text-overflow: ellipsis;
+    }
+    section.s2 div a {
+        width: 30px;
+        border: none;
+        /* 내가 추가함(아이콘 높이 수정목적) */
+        margin-top: 50%;
+    }
+    section.s2 .centerBox .promotion {
+        color: #333;
+        justify-content: center;
+    }
+    section.s2 .centerBox .promotion p {
+        width: auto;
+        font-size: 20px;
+        font-weight: bold;
+        padding-right: 5%;
+    }
+    section.s3 {
+        background-color: #1e3932;
+        color:#fff;
+        padding-top: 40px;
+        padding-bottom: 50px;
+    }
+    section.s3 .rewards_logo {
+        width: 40%;
+        /* 위 간격0 왼오 자동중간 아래간격30*/
+        margin: 0 auto 30px;
+    }
+    section.s3 .rewards_txt {
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        /* 글자 높이를 부모에서 한꺼번에 설정 */
+        line-height: 24px;
+    }
+    section.s3 .rewards_txt .flex {
+        display: flex;
+        /* pc버전에서는 row nowrap으로 바꿀 예정 */
+        flex-flow:column nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    section.s3 .rewards_txt .flex h2 {
+        font-size: 4.5vw;
+        line-height: 28px;
+        /*보통 굵기로, <strong>은 굵기 유지*/
+        font-weight: normal;    
+        margin-bottom: 14px;
+    }
+    section.s3 .rewards_txt .flex p {
+        font-size: 3.6vw;
+    }
+    /* 위 아래 a태그를 한꺼번에 쓰기 위해 중간 생략을 함 */
+    section.s3 .rewards_txt a {
+        /* inline으로만 하면 여백이 사라지기 때문에 inline-block으로 함 */
+        width: 34vw;
+        display: inline-block;
+        color: #fff;
+        font-weight: normal;
+        font-size: 14px;
+        border-color: #fff;
+        margin: 5vw 1vw;
+        line-height: 8vw;
+        white-space: nowrap;
+    }
+    /* 회원가입 버튼만 배경색 변경 */
+    section.s3 .rewards_txt .join {
+        background-color: #00704a;
+        border-color: #00704a;
+    }
+    section.s3 .rewards_txt .rewards_bottom {
+        /* 간격 사이에 선을 그림 (실무에서 많이 씀) */
+        border-top: 1px solid #4b615b;
+        padding-top: 20px;
+        padding-bottom: 50px;
+    }
+    /* 특정 a태그(card 선물하기)의 테두리 가로를 늘림 */
+    section.s3 .rewards_txt .rewards_bottom a {
+        width: 72.63vw;
+    }
+    /* 모바일 버전에서는 글자 줄바꿈 설정 */
+    section.s3 br, section.s4 br {
+        display: block;
+    }
+    section.s4 {
+        background-image: url(../img_m/2024_m_newYear_promotion_bg.jpg);
+        background-position: center;
+        background-size: cover ;
+        background-repeat: no-repeat;
+        height: 175vw;
+        padding: 60px 0;
+        text-align: center;
+        color: #6a501a;
+    }
+    section.s4 .beans_img {
+        /* pc버전에선sms position:absolute;로 처리함, 혹여 틀어질 사태를 발생해서 쓰는 것임 position: static; 또는 position: relative*/
+        position: static;
+        width: 53vw;
+        margin: 0 auto;
+        /* 이미지 위치 조절 */
+        transform: translateX(10vw);
+    }
+    section.s4 .beans_txt {
+        margin-top: 20px;
+        letter-spacing: -1px;
+    }
+    section.s4 .beans_txt strong {
+        font-size: 4vw;
+        opacity: 0.7;
+    }
+    section.s4 .beans_txt h2 {
+        font-size: 6.5vw;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+    section.s4 .beans_txt a {
+        color:#6a501a;
+        border-color: #6a501a;
+        margin: 7vw auto 0;
+    }
+    section.s5 {
+        background-image: url(../img_m/231221_m_reserve_bg2.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* a태그의 부모 */
+        position: relative;
+        height: 175vw;
+    }
+    /* 모바일에는 안보임 */
+    section.s5 .pc_guatemala {
+        display: none;
+    }
+    section.s5 div a {
+        /* 자세히 보기 버튼 옮김 */
+        position: absolute;
+        bottom: 16%;
+        left: 50%;
+        transform: translateX(-50%);
+        color:#cd9757;
+        border-color: #cd9757;
+    }
+    section.s6 {
+        background-image: url(../img_m/231222_m_pick_bg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 12vw;
+        padding-top: 33vw;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 233vw;
+        position: relative;
+    }
+    /* pick_txt와 .pick_img 순서 바꾸기 */
+    section.s6 .pick_txt {
+        position: absolute;
+        /* 글자 정가운데 설정 */
+        left: 50%;
+        transform: translateX(-50%);
+        top: 70%;
+        order: 2;   /*순서*/
+        color:#fff;
+        text-align: center;
+        white-space: nowrap;
+    }
+    section.s6 .pick_img {
+        order: 1;
+    }
+    section.s6 .pick_txt h3 {
+        font-size: 6vw;
+        line-height: 7vw;
+        /* 굵은 글자 일반 글자로 바꾸기 strong 제외 */
+        font-weight: normal;
+        margin-bottom: 4vw;
+    }
+    section.s6 .pick_txt p {
+        font-size: 3.1vw;
+    }
+    section.s6 .pick_txt p span {
+        /* 모바일 전용 줄바꿈임 */
+        /* 인라인 요소를 블록요소로 변경 - 자동줄바꿈 */
+        display: block;
+    }
+    section.s6 .pick_txt a {
+        border-color: #fff;
+        color: #fff;
+        margin:8vw auto;
+        width:120px;
+        font-size: 14px;
+        line-height: 8vw;
+    }
+    /* 모바일에서는 안보임 */
+    section.s6 .pick_txt .pick_title {
+        display: none;
+    }
+    section.s7 {
+        background-image: url(../img_m/reserve_visual_m.jpg);
+        background-size: cover; 
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 180vw;
+        position:relative;
+    }
+    /* 모바일 버전에서는 안보임 */
+    section.s7 .magazine {
+        display: none;
+    }
+    section.s7 a {
+        width: 120px;
+        border-color:#333;
+        color:#333;
+        font-size: 14px;
+        line-height: 8vw;
+        position: absolute;
+        left: 50%;
+        /* 중간(-50%)에서 더 왼쪽으로 보냄 */
+        transform: translateX(-55%);
+        bottom: 4vw;
+    }
+    section.s8 {
+        background-image: url(../img/store_bg.jpg);
+        /* 배경이미지 반복 */
+        background-repeat: repeat;
+        background-size: 100%;
+        /* 전부 가운데로 몰림 */
+        background-position: center;
+        position:relative;
+        height: 175vw;
+    }
+    section.s8 .store_img .bean {
+        position:absolute;
+        width: 50%;
+        top:73%; left: 6.5%;
+    } 
+    section.s8 .store_img {
+        width: 80%;
+        height: 75vw;
+        margin: 0 auto;
+        position:relative;
+    }
+    section.s8 .store_img .store1 {
+        position:absolute;
+        width: 70%;
+        top:0; left: 0;
+    } 
+    section.s8 .store_img .store2 {
+        position:absolute;
+        width: 50%;
+        right: 5vw; bottom:0;
+    } 
+    section.s8 .store_txt {
+        text-align: center;
+        margin-top: 7vw;
+    }
+    section.s8 .store_txt h3 {
+        font-size: 5vw;
+        font-weight: normal;
+    }
+    section.s8 .store_txt h4 {
+        font-size: 3.5vw;
+        font-weight: normal;
+    }
+    section.s8 .store_txt p {
+        margin-top: 4vw;
+        font-size: 3vw;
+    }
+    section.s8 .store_txt a {
+        width: 120px;
+        border-color: #333;
+        color: #333;
+        font-size: 14px;
+        line-height: 8vw;
+        margin:8vw auto;
+    }
+    section.s8 .store_icon {
+        width: 40%;
+        /* /* 다른 방식으로는 이렇게 할 수 있다 */
+        /* transform: translateX(120%) translateY(75%); */
+        position: absolute;
+        bottom: -10px;
+        left: 45%;
+    }
+    footer {
+        width: 100%;
+    }
+    footer .sitemap, footer .info {
+        background-color:#2C2A29;
+    }
+    footer .awards {
+        background-color:#282828;
+        padding: 5vw;
+    }
+    footer .sitemap {
+        /* 자식객체 .footer_logo의 위치를 sitemap 기준으로 설정 */
+        /* 모바일에 넣었지만 pc버전에도 적용이 되기에 냅둠 */
+        position:relative;
+    }
+    /* 모바일에는 안보임 */
+    footer .sitemap .footer_logo {
+        display: none;
+    }
+    /* 자식 선택자(>) */
+    footer .sitemap .sitemap_list > ul {
+        display:flex;
+        /* pc버전을 고려해서 적용 */
+        flex-flow:column nowrap;
+    }
+    /* 주메뉴에 적용함 */
+    footer .sitemap .sitemap_list > ul > li > a {
+        display:flex;
+        justify-content:space-between;
+        background-color: #554c46;
+        color:#fff;
+        font-size:14px;
+        padding:3.4vw;
+        border-bottom: 1px solid #403a36;
+        align-items: center;
+    }
+    /* footer 영역의 sitemap_list의 주메뉴 클릭하면 밑줄 나옴 .으로 바꾸고 제이쿼리로 할 예정*/
+    footer .sitemap .sitemap_list > ul > li > a.active span {
+        text-decoration:underline;
+    }
+    /* sitemap_list의 주메뉴를 클릭하면 화살표 방향 바뀜 */
+    footer .sitemap .sitemap_list > ul > li > a.active i {
+        transform:rotateX(180deg)
+    }
+    /* footer 영역의 sitemap_list는 아코디언 메뉴로 작성 */
+    footer .sitemap .sitemap_list .sub {
+        display: none;
+    }
+    footer .sitemap .sitemap_list .sub li a {
+        background-color:#645952;
+        color:#e6dbd3;
+        font-size:14px;
+        padding:3vw;
+    }
+    /* 모바일에서는 보임 */
+    footer .sitemap .footer_btn {
+        /* 나중에는 보이는 사태를 방지하기 위함 */
+        display: block;
+        padding: 7vw;
+        /* 간격조정을 위해 padding을 추가 */
+        padding-left: 10vw;
+        padding-right: 10vw;
+        padding-bottom: 10vw;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+    footer .sitemap .footer_btn a {
+        color:#fff;
+        border: 2px solid #fff;
+        padding:2vw 5vw;
+        border-radius: 4px;
+    }
+
+    /* footer 영역의 swiper는 슬라이드 plugin 사용하여 작성 */
+    footer .awards .swiper {
+        /* 사진 잘리는 현상으로 늘림 */
+        width: 100%;
+        /* margin: 0 auto; */
+    }
+    footer .awards .swiper div {
+        /* width: 50vw; */
+        /* 이미지 swiper 영역 가운데로 정렬 */
+        text-align: center;
+    }
+    footer .awards .swiper img {
+        width:initial;
+    }
+    footer .awards .swiper-btn {
+        color:#aaa;
+        position:relative;
+        width:12px; height:16px;
+        /* 버튼 가운데 정렬 */
+        margin: 0 auto;
+    }
+    footer .awards .swiper-btn i {
+        position:absolute;
+    }
+    footer .awards .swiper-btn .fa-play {
+        display: none;
+    }
+    footer .awards .swiper-btn .fa-pause {
+        display: inline-block;
+    }
+    footer .info .user {
+        /* 굳이 정렬(flex) 설정 안해도 되서 지움 */
+        padding:5vw 7vw;
+        line-height:24px;
+        text-align:center;
+    }
+    footer .info .user a {
+        color:#ccc;
+        font-size:12px;
+        /* 글자 하나하나의 여백 */
+        padding:0 10px;
+        display:inline-block;
+        border-right: 1px solid #393939;
+    }
+    footer .info .user a:first-child, footer .info .user a:nth-child(4) {
+        font-weight: bold;
+        color: #00b050;
+    }
+    /* 버튼 3개 있는 영역 */
+    footer .info .user_btn {
+        text-align:center;
+        padding:0vw 7vw;
+    }
+    /* 버튼 3개 */
+    footer .info .user_btn a {
+        border:2px solid #fff;
+        border-radius: 3px;
+        color:#fff;
+        display:inline-block;
+        font-size:12px;
+        /* 버튼 사이즈 동일하게 하기 위함 */
+        width:95px; 
+        /* 높이 조절용 */
+        height:35px; line-height: 30px;
+        text-align: center;
+        margin: 0.5vw;
+
+        white-space: nowrap;
+    }
+    footer .info address, footer .info p {
+        font-style:normal;  /*기울어지지 않게*/
+        color:#999;
+        font-size:12px;
+        text-align:center;
+        padding:3vw 0;
+    }
+    /* 모바일 글로벌 내비게이션(전체 메뉴) */
+    header .menu_area .mobile_menu {
+        width:100vw;
+        height:100vh;
+        /* 숫자가 클수록 겹쳐졌을때 앞으로 나온다는 의미 */
+        z-index: 100;
+        /* 고정 */
+        position:fixed;
+        top:0;
+        /* 오른쪽으로 확 밀어버림 */
+        right:-100vw;
+        /* r:0, g:0, b:0, alpha:70%(투명도) */
+        background-color: rgba(0,0,0,0.7);
+        display:flex;
+        flex-flow: row nowrap;
+    }
+    /* x(닫기)버튼 위치와 색 변경, 직속 자식선택자(>) */
+    header .menu_area .mobile_menu > .close_btn {
+        color:#fff;
+        font-size:7vw;
+        padding:4vw;
+        width:30%;
+        text-align: right;
+        /* 손가락 표시 뜨게 만들기(모바일이라 의미는 없음) */
+        cursor:pointer;
+    }
+    /* 닫기 버튼 회전 */
+    header .menu_area .mobile_menu .close_btn i.active {
+        transform:rotateZ(-90deg);
+        /* transition : 속성 실행시간 대기시간 */
+        transition: all 0.6s 0.3s;
+    }
+    header .menu_area .mobile_menu .mobile_menu_box {
+        background-color: #111;
+        width:70%;
+        /* 넘치면 스크롤 가능하게 함 */
+        overflow:auto;
+    }
+    header .menu_area .mobile_menu .mobile_menu_box .mobile_search {
+        background-color: #2d2926;
+        padding:5.5vw 8vw 6.5vw;
+        display:flex;
+        justify-content:center;
+        border-bottom:1px solid #222;
+    }
+    /* 검색창 */
+    header .menu_area .mobile_menu .mobile_menu_box .mobile_search input {
+        width:33vw; height:7vw;
+        border:1px solid #e3e1d2;
+        border-radius:3px;
+        margin-right:10px;
+    }
+    /* 검색버튼(태그는 .을 붙이지 않음) */
+    header .menu_area .mobile_menu .mobile_menu_box .mobile_search button {
+        background-color: #666;
+        color:#fff;
+        border-radius:3px;
+        font-size:4vw;
+        width:16vw; height:7vw;
+        /* 글자 위치 조정 */
+        line-height: 10px;
+        text-align: center;
+        /* 버튼에 기본적으로 있는 테두리 없앰 */
+        border:none; 
+    } 
+    /* 메뉴에 있는 모든 2차 3차 태그들 */
+    header .menu_area .mobile_menu .mobile_menu_box nav ul li a {
+        font-size: 3vw;
+        color:#fff;
+        padding:3vw 4vw;
+        border-bottom:1px solid #222;
+        background-color: #111;
+        /* 화살표 정렬 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    /* 메뉴 오른쪽의 화살표 아이콘 */
+    header .menu_area .mobile_menu .mobile_menu_box nav ul li a i {
+        font-size: 4vw;
+    }
+    /* 첫번째 메뉴 영역의 배경색 변경 */
+    header .menu_area .mobile_menu .mobile_menu_box nav > ul > li:first-child > a {
+        background-color:#2d2926;
+    }
+    /* 1차 서브메뉴 */
+    header .menu_area .mobile_menu .mobile_menu_box nav .sub li a {
+        background-color: #202124;
+        color:#ccc;
+        padding:3vw 4vw;
+        border-bottom: 1px solid #222;
+    }
+    /* 1차 서브 메뉴의 아래쪽 화살표 */
+    header .menu_area .mobile_menu .mobile_menu_box nav .sub li a i {
+        color:#666;
+    }
+    /* 2차 서브 메뉴 */
+    header .menu_area .mobile_menu .mobile_menu_box nav .sub .sub li a {
+        background-color: #282a2d;
+        padding:2vw 8vw;
+        font-size: 2.8vw;
+        color:#999;
+        border-bottom:none;
+    }
+    /* 서브메뉴 안보임 */
+    header .menu_area .mobile_menu .mobile_menu_box .sub {
+        display: none;
+    }
+    /* 메뉴에 마우스 오버하면 밑줄 나옴 */ 
+    header .menu_area .mobile_menu .mobile_menu_box nav ul li a.active span,
+    header .menu_area .mobile_menu .mobile_menu_box nav ul li a:hover span {
+        text-decoration: underline;
+    }
+
+    /* 메뉴를 클릭하면(터치하면 화살표 방향 바뀜) */
+    header .menu_area .mobile_menu .mobile_menu_box nav ul li a.active i {
+        transform: rotateX(180deg);
+    }
+
+}
+@media screen and (min-width:480px) {
+}
+/* 미디어 쿼리 - 분기점(breakpoint) - 태블릿 버전 */
+@media screen and (min-width:1024px) {
+    
+}
+
+/* 미디어 쿼리 - 분기점(breakpoint) - PC 버전 */
+@media screen and (min-width:1440px) {
+    
+}
