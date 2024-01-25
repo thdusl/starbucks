@@ -616,7 +616,9 @@ body, a {
     }
     header .menu_area .mobile_menu .mobile_menu_box .mobile_search {
         background-color: #2d2926;
-        padding:5.5vw 8vw 6.5vw;
+        /* 일부러 높이 맞춤(내가 추가) */
+        height: 70px;
+        padding:5.5vw 8vw 6.3vw;
         display:flex;
         justify-content:center;
         border-bottom:1px solid #222;
