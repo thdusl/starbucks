@@ -4,9 +4,19 @@
 li { list-style: none;}
 a { text-decoration: none; color: #333; display:block; }
 img { width: 100%; }
-html, body {   }
+html, body {
+    width:100%;
+    /* 가로(좌우) 스크롤 숨김 */
+    overflow-x:hidden;
+}
 body, a {
     font-family: 'Noto Sans KR', sans-serif;
+}
+/* 겹치는 현상 해결 */
+/* header와 section.s1의 margin-top이 중첩(상쇄:collapsiog) 해결 */
+section, footer {
+    width:100%;
+    float:left;
 }
 /* 미디어 쿼리 - 분기점(breakpoint) - 모바일 버전 */
 @media screen and (min-width:360px) {
@@ -16,6 +26,9 @@ body, a {
         height:70px;
         background-color: #f6f5ef;
         padding: 0 3%;
+        /* 상단 메뉴 고정 */
+        position: fixed;
+        z-index: 90;
     }
     header .centerBox {
         width: 100%;
@@ -65,7 +78,6 @@ body, a {
         margin-top: 5vw;
     }
     section.s1 {
-        width: 100%;
         height: 255vw;
         padding:18vw 16vw; /*위아래 / 왼오*/
         background-image: url(../img_m/2024_m_newYear_top_bg.jpg);
@@ -73,6 +85,8 @@ body, a {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+        /* 헤더 높이만큼 여백 주기 */
+        margin-top:70px;
     }
     section.s1 .pc_detail, section.s1 .pc_drink{
         display: none;
@@ -88,7 +102,6 @@ body, a {
         align-items: center;
     }
     section.s2 {
-        width:100%;
         /* s2의 position: absolute로 인해 section.s3와 겹치면서 가려지기 때문에 높이를 설정함 */
         height: 140px;
         /* 자식객체가 겹칠때 기준이 s2가 되라고 함 */
@@ -245,6 +258,12 @@ body, a {
         /* 이미지 위치 조절 */
         transform: translateX(10vw);
     }
+    section.s4 .beans_img .mobile_beans {
+        display:block;
+    }
+    section.s4 .beans_img .pc_beans {
+        display:none;
+    }
     section.s4 .beans_txt {
         margin-top: 20px;
         letter-spacing: -1px;
@@ -372,6 +391,8 @@ body, a {
         background-position: center;
         position:relative;
         height: 175vw;
+        /* 애니효과에서 날아올때 튀어나온 부분이 없게 함 */
+        overflow: hidden;
     }
     section.s8 .store_img .bean {
         position:absolute;
@@ -397,6 +418,16 @@ body, a {
     section.s8 .store_txt {
         text-align: center;
         margin-top: 7vw;
+        /* 애니메이션을 부드럽게 하기 위함임 */
+        position:relative;
+        white-space:nowrap;
+    }
+    /* 애니메이션을 위한 추가 */
+    section.s8 .store_txt .txt1 {
+        position:absolute;
+        /* 가운데 정렬 */
+        /* left:50%; */
+        transform:translateX(22%);
     }
     section.s8 .store_txt h3 {
         font-size: 5vw;
@@ -407,7 +438,10 @@ body, a {
         font-weight: normal;
     }
     section.s8 .store_txt p {
-        margin-top: 4vw;
+        position:absolute;
+        /* 가운데 정렬 */
+        left:50%;
+        transform:translateX(-50%);
         font-size: 3vw;
     }
     section.s8 .store_txt a {
@@ -416,7 +450,10 @@ body, a {
         color: #333;
         font-size: 14px;
         line-height: 8vw;
-        margin:8vw auto;
+        position:absolute;
+        /* 가운데 정렬 */
+        /* left:50%; */
+        transform:translateX(98%);
     }
     section.s8 .store_icon {
         width: 40%;
@@ -425,9 +462,6 @@ body, a {
         position: absolute;
         bottom: -10px;
         left: 45%;
-    }
-    footer {
-        width: 100%;
     }
     footer .sitemap, footer .info {
         background-color:#2C2A29;
@@ -505,6 +539,8 @@ body, a {
         /* 사진 잘리는 현상으로 늘림 */
         width: 100%;
         /* margin: 0 auto; */
+        /* pc에서는 안보임/모바일에서는 보임 */
+        display: block;
     }
     footer .awards .swiper div {
         /* width: 50vw; */
@@ -530,6 +566,10 @@ body, a {
     footer .awards .swiper-btn .fa-pause {
         display: inline-block;
     }
+    /* 모바일에서는 안보임/pc에서는 보임 */
+    footer .awards .awards_list {
+        display: none;
+    }
     footer .info .user {
         /* 굳이 정렬(flex) 설정 안해도 되서 지움 */
         padding:5vw 7vw;
@@ -543,6 +583,10 @@ body, a {
         padding:0 10px;
         display:inline-block;
         border-right: 1px solid #393939;
+    }
+    /* 마지막 글자 우측 선 지우기 */
+    footer .info .user a:last-child {
+        border-right:none;
     }
     footer .info .user a:first-child, footer .info .user a:nth-child(4) {
         font-weight: bold;
@@ -696,16 +740,1690 @@ body, a {
     header .menu_area .mobile_menu .mobile_menu_box nav ul li a.active i {
         transform: rotateX(180deg);
     }
-
+    /* 모바일버전 컨텐츠 애니메이션 */
+    .ani1 {
+        /* 서서히 나타나는 애니메이션 */
+        opacity:0;
+        transition:opacity 1.2s;
+    }   
+    .ani2 {
+        /* 서서히 나타나는 애니메이션 */
+        opacity:0;
+        transition:opacity 1.2s;
+    }   
+    .ani3 {
+        /* 서서히 나타나는 애니메이션 */
+        opacity:0;
+        transition:opacity 1.2s;
+    } 
+    .ani4 {
+        /* 서서히 나타나는 애니메이션 */
+        opacity:0;
+        transition:opacity 1.2s;
+    }     
+    .ani5 {
+        /* 서서히 나타나면서 위에서 아래로 내려오는 애니메이션 */
+        opacity:0;
+        top:-200vw;
+        transition:opacity 1.2s, top 1.2s;
+    }
+    .ani6 {
+        /* 서서히 나타나면서 아래에서 위로 올라오는 애니메이션 */
+        opacity:0;
+        top:200vw;
+        transition:opacity 1.2s, top 1.2s;
+    }
+    .ani7 {
+        /* 서서히 나타나면서 아래에서 위로 올라오는 애니메이션 */
+        opacity:0;
+        top:200vw;
+        transition:opacity 1.2s, top 1.2s;
+    }
+    .ani8 {
+        /* 서서히 나타나면서 아래에서 위로 올라오는 애니메이션 */
+        opacity:0;
+        top:200vw;
+        transition:opacity 1.2s, top 1.2s;
+    }
+    .icon_ani {
+        opacity:0;
+        transition:opacity 3s;
+    }
+    .ani1.active {
+        opacity:1;
+    }
+    .ani2.active {
+        opacity:1;
+    }
+    .ani3.active {
+        opacity:1;
+    }
+    .ani4.active {
+        opacity:1;
+    }
+    .ani5.active {
+        opacity:1;
+        top:0;
+    }
+    .ani6.active {
+        opacity:1;
+        top: 20vw;
+    }
+    .ani7.active {
+        opacity:1;
+        top: 35vw;
+    }
+    .ani8.active {
+        opacity:1;
+        top: 40vw;
+    }
+    .icon_ani.active {
+        opacity: 1;
+    }
+    .delay1 { transition-delay:0.4s; }
+    .delay2 { transition-delay:0.8s; }
+    .delay3 { transition-delay:1.2s; }
+    .delay4 { transition-delay:1.6s; }
 }
 @media screen and (min-width:480px) {
 }
 /* 미디어 쿼리 - 분기점(breakpoint) - 태블릿 버전 */
 @media screen and (min-width:1024px) {
+    header {
+        height:120px;
+        padding:2.5vw 2vw;
+        /* 내가 추가 */
+        border-top: 2px solid #000;
+    }
+    header .centerBox {
+        width:100%;
+    }
+    footer .centerBox {
+        width: 100%;
+    }
+    header .centerBox .logo {
+        width:75px; height:75px;
+    }
+    /* 태블릿에서는 안보임 */
+    header .centerBox .menu_area {
+        display:flex;
+        flex-flow:column nowrap;
+        /* 자식객체를 오른쪽에 배치 */
+        align-items: end;
+    }
+    header .centerBox .menu_area .header_icon { display: none; }
+    /* 태블릿에서는 보임 */
+    header .centerBox .menu_area .topMenu { 
+        display:block;
+        /* 자식 객체 search_area가 position:absolute임 */
+        position:relative;
+        margin-top: 15px;
+    }
+    header .centerBox .menu_area .topMenu ul {
+        width:480px;
+        /* 버튼 누를때 밀리라는 의미 */
+        float:right;
+        display: flex;
+        flex-flow:row nowrap;
+        justify-content:space-between;
+        align-items: center;
+        margin-right:50px;
+    }
+    header .centerBox .menu_area .topMenu ul li a {
+        font-size:13px;
+        padding:0 15px;
+        border-right: 1px solid #ddd;
+        /* 글자 줄바꿈 */
+        white-space: nowrap;
+    }
+    header .centerBox .menu_area .topMenu ul li:hover a {
+        text-decoration: underline;
+    }
+    /* header .topMenu의 마지막 li a태그의 border-right 지우기 */
+    header .centerBox .menu_area .topMenu ul li:last-child a {
+        border-right: none;
+    }
+    header .centerBox .menu_area .topMenu .search_area {
+        position:absolute;
+        border:1px solid #ccc;
+        background-color: #fff;
+        width:34px; height:34px;
+        border-radius:5px;
+        padding:5px;
+        /* .search_area 영역을 벗어난 객체는 모두 숨김 */
+        overflow:hidden;
+        /* 부모객체 topMenu 기준으로 위치 설정 */
+        right:0; top:-6px;
+    }
+    header .centerBox .menu_area .topMenu .search_area input {
+        border:none;
+        background-color: transparent;
+        font-size: 12px;
+        width:130px; height: 20px;
+        padding:0 10px;
+        position:absolute;
+        /* 부모객체 .search_area를 기준으로 위치 설정 */
+        /* 35px이 떨어지는 그 사이에 돋보기 버튼이 있어야 함 */
+        right:35px; top:5px;
+    }
+    /* header의 검색영역의 돋보기 버튼 */
+    header .centerBox .menu_area .topMenu .search_area a {
+        position:absolute;
+        /* 부모객체 .search_area를 기준으로 위치 설정 */
+        right:5px; top:5px;
+        width: 20px; height: 21px;
+        padding: 0;
+    }
+
+    /* 태블릿버전 글로벌 내비게이션 */
+    header .centerBox .menu_area .menu { 
+        display: block; 
+        margin-top: 20px;
+        width: 870px;
+    }
+    /* 태블릿버전 글로벌 내비게이션 주메뉴 - 자식선택자(>) */
+    header .centerBox .menu_area .menu nav > ul {
+        display:flex;
+        flex-flow:row nowrap;
+        justify-content:space-between;
+    }
+    header .centerBox .menu_area .menu nav > ul > li > a {
+        font-size:14px;
+        padding: 10px 20px 40px;
+        white-space:nowrap;
+    }
+    header .centerBox .menu_area .menu nav > ul > li:hover > a {
+        color:#669900;
+        background-color: #2c2a29;
+        text-decoration:underline;
+    }
+    /* 태블릿버전 글로벌 내비게이션 서브메뉴 */
+    header .centerBox .menu_area .menu nav .sub { 
+        /* 브라우저 기준으로 위치 설정 */
+        position:absolute;
+        /* 서브메뉴 높이 조절(header의 높이에 맞추되 선을 가리기 위해 줄이기) */
+        top:118px; left:0;
+        width:100%;
+        background-color:#2c2a29;
+        padding: 20px;
+        display: none;
+    }
+    header .centerBox .menu_area .menu nav .sub .centerBox {
+        align-items: baseline;
+        justify-content: flex-start;
+        height: auto;
+    }
+    header .centerBox .menu_area .menu nav .sub li {
+        /* 서브메뉴 위치 간격 조정 */
+        margin-right: 150px;
+    }
+    header .centerBox .menu_area .menu nav .sub li a {
+        font-size:12px;
+        color:#999;
+        margin-bottom:5px;
+        white-space: nowrap;
+    }
+    /* 첫번째 a태그에게만 적용 */
+    header .centerBox .menu_area .menu nav .sub li a:first-child {
+        color:#fff;
+        font-size:14px;
+        margin-bottom: 15px;
+    }
+    header .centerBox .menu_area .menu nav .sub li a:hover {
+        text-decoration: underline;
+    }
+    /* 태블릿에서는 안보임/모바일에서는 보임 */
+    header .centerBox .menu_area .mobile_menu { display:none; }
+    /* 태블릿버전 section */
+    section .centerBox {
+        flex-flow:row nowrap;
+        align-items:center;
+        justify-content:center;
+        /* 전체 적용 */
+        width: 100%;
+        margin: 0 auto;
+    }
+    /* 태블릿버전의 모든 <자세히보기>버튼에 애니메이션 설정 */
+    section a {
+        /* all : 모든 속성에 대해 애니메이션 설정, 1.2s = 0.5초(second) */
+        /* transition:all 1.2s; */
+        /* 배경색, 글자색 속성에 대해 애니메이션 설정 */
+        transition:background-color 1.2s, color 1.2s;
+        border-radius: 5px;
+    }
+    section a:hover {
+        text-decoration:underline;
+        color: #fff;;
+        background-color: #1a3c34;
+    }
+    section.s1 {
+        background-image: url(../img/2024_newYear_top_bg.jpg);
+        height:32vw;
+        padding:0;
+        border-top: 2px solid #111;
+        /* header와 겹치지 않게 haeder 높이만큼 띄워서 설정 */
+        margin-top:120px;
+        /* margin:0; */
+    }
+    section.s1 .centerBox {
+        width: 100%;
+        height:32vw;
+    }
+    /* 왼쪽 타이틀 이미지 */
+    section.s1 .moment {
+        width:15vw;
+        margin:0;
+    }
+    /* 태블릿버전 section.s1 자세히보기 버튼 */
+    section.s1 .moment a { 
+        display:block;
+        margin:2.6vw auto 0;
+        width:8vw;  height:3.2vw;
+        /* 글자 높이 위치 조정 */
+        line-height :3vw;
+        font-weight:normal;
+        font-size:14px;
+        border-radius:4px;
+    }
+    /* 컵 3개 정렬 */
+    section.s1 .drink {
+        flex-flow:row nowrap;
+        position: relative;
+        /* 브라우저의 반이 음료수 */
+        width:60%;
+        margin-left:5vw;
+    }
+    /* 태블릿/pc컵 보임 */
+    section.s1 .drink .pc_drink {
+        display: block;
+    }
+    /* 모바일컵 안보임 */
+    section.s1 .drink .mobile_drink {
+        display: none;
+    }
+    /* 푸른용 헤이즐넛 라떼 */
+    section.s1 .drink .drink1 {
+        width:43%;
+        position:absolute;
+        /* 부모 영역에서 조금 왼쪽으로 밀기 */
+        left:-1vw; 
+        top:50%;
+        transform:translateY(-58%);
+    }
+    /* 푸른용 클래식 밀크티 */
+    section.s1 .drink .drink2 {
+        position:absolute;
+        width:33%;
+        left:36%;  top:0;
+    }
+    /* 핑크 폼 딸기라떼 */
+    section.s1 .drink .drink3 {
+        position:absolute;
+        width:35%;
+        right:4%; top:0;    /*top:50%와 0은 차이가 없음*/
+        transform:translateY(-60%);
+    }
+    /* 모바일버전 자세히보기 안보임 */
+    section.s1 .drink a {
+        display:none;
+    }
+    section.s2 { height:70px; }
+    /* 태블릿버전 공지사항 & 프로모션 배경 */
+    section.s2 .s2_bg {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    section.s2 .s2_bg .black_bg { width:50%; }
+    section.s2 .s2_bg .white_bg { width:50%; }
+    /* 글자 위치 옮김 */
+    section.s2 .centerBox {
+        width: 100%;
+        height: 70px;
+        left: 50%;
+        transform:translateX(-50%);
+        justify-content:space-between;
+    }
+    /* 공지사항 & 프로모션 배경 색 길이 다르게 조절 */
+    section.s2 .centerBox .notice { 
+        width:50%;
+    }
+    section.s2 .centerBox .promotion { 
+        width:50%; 
+        /* 내가 추가 */
+        padding: 9vw;
+        justify-content: space-between;
+    }
+    /* 내가 추가 버튼 위치 옮김 */
+    section.s2 .centerBox .promotion .btn {
+        padding-right: 7vw;
+    }
+    /* 공지사항 제목 보임*/
+    section.s2 .notice h3 {
+        display: block;
+        /* 내가추가)공지사항 굵기해제 */
+        font-weight: normal;
+    }
+    /* 공지사항 스피커 안보임 */
+    section.s2 .notice .mobile_title {
+        display: none;
+    }
+    /* 자식선택자(>) 글자 간격 조정 */
+    section.s2 .centerBox > div {
+        padding: 0 3%;
+        width:50%;
+    }
+    section.s2 div p {
+        font-size: 14px;
+        padding:0;
+        padding-left: 10px;
+    }
+    section.s2 div a {
+        margin-top: 0;
+        line-height:0;
+        transform: none;
+    }
+    section.s2 div a:hover {
+        /* 배경 투명 transparent */
+        background-color: transparent;
+    }
     
+    /* 태블릿버전 특별한 혜택, 회원가입, 로그인 */
+    section.s3 {
+        padding:35px 5px 0;
+        padding-right: 2.8vw;
+    }
+    section.s3 .rewards_logo {
+        width:16%;
+        /* 내가 추가, 로고위치 조정 */
+        padding-bottom: 1vw;
+    }
+    section.s3 .rewards_txt {
+        width:76%;
+        margin: 0;
+    }
+    /* 태블릿버전에서는 줄바꿈(br)태그 안보임 */
+    section.s3 .rewards_txt br {
+        display:none;
+    }
+    section.s3 .rewards_txt .pc_br {
+        display: block;
+    }
+    /* 옆으로 정렬 */
+    section.s3 .rewards_txt .flex {
+        flex-flow:row nowrap;
+        /* 텍스트 왼쪽으로 밀어넣기 */
+        text-align: left;
+    }
+    section.s3 .rewards_txt .flex h2 {
+        font-size:2.6vw;
+    }
+    section.s3 .rewards_txt .flex p {
+        font-size:1.7vw;
+    }
+    /* 회원가입, 로그인 버튼 */
+    section.s3 .rewards_txt a {
+        width:9vw;
+        /* 버튼 박스 높이 조절 */
+        line-height: 3.5vw;
+        margin:0 0.2vw;
+        border-radius: 5px;
+    }
+    /* 회원가입 로그인 버튼 위치 아래로 */
+    section.s3 .rewards_txt .rewards_top .rewards_btn {
+        margin-top: 3.5vw;
+    }
+    section.s3 .rewards_txt .rewards_bottom {
+        margin-top:1vw;
+    }
+    section.s3 .rewards_txt .rewards_bottom p {
+        font-size: 1.35vw;
+    }
+    /* e 카드 선물 버튼 */
+    section.s3 .rewards_txt .rewards_bottom a {
+        width: 18.5vw;
+    }
+    section.s4 {
+        background-image: url(../img/2024_newYear_promotion_bg.jpg);
+        height:43vw;
+        position:relative;
+    }
+    section.s4 .beans_img {
+        width:24vw;
+        margin:0 auto;
+        position:absolute;
+        /* 자리배치 */
+        top:10%;
+        /* 왼쪽에서 얼만큼 올건지 지정 */
+        /* 애니메이션 설정에 옮김 */
+        /* left:12%; */
+    }
+    section.s4 .beans_img .mobile_beans {
+        display:none;
+    }
+    section.s4 .beans_img .pc_beans {
+        display:block;
+    }
+    section.s4 .beans_txt {
+        position:absolute;
+        text-align: left;
+        /* 자리배치 */
+        top:24%;
+        /* 오른쪽에서 얼만큼 올건지 지정 */
+        /* 애니메이션 설정에 옮김 */
+        /* right:9%; */
+    }
+    section.s4 .beans_txt .s4_m_br {
+        display:none;
+    }
+    section.s4 .beans_txt strong {
+        font-size:1.6vw;
+        opacity:0.5;
+    }
+    section.s4 .beans_txt h2 {
+        font-size:2.4vw;
+        margin:0;
+    }
+    section.s4 .beans_txt p {
+        opacity:0.8;
+    }
+    section.s4 .beans_txt a {
+        border-radius:5px;
+        /* 버튼 가로 크기 조절 */
+        width:10vw;
+        line-height:3vw;
+        height:3.5vw;
+        font-size:14px;
+        font-weight:normal;
+        margin:0;
+        margin-top: 3.5vw;
+    }
+    section.s4 .beans_txt a:hover {
+        background-color:#6a501a;
+        color:#fff;
+    }
+    section.s5 {
+        background-image:url(../img/231221_pc_reserve_bg.jpg);
+        height:33vw;
+        background-position:top center;
+    }
+    section.s5 .pc_guatemala {
+        display:block;
+        position:absolute;
+        top: 18%;
+        left:21%;
+    }
+    section.s5 div a {
+        width:12vw;
+        height:3.5vw;
+        line-height: 3.2vw;
+        font-weight: normal;
+        left: 42%; bottom: 30%;
+        font-size: 14px;
+    }
+    section.s5 div a:hover {
+        color: #333;
+        background-color: #cd9757;
+    }
+    section.s6 {
+        background-image:url(../img/231222_1_pc_pick_bg.jpg);
+        /* 태블릿과 pc에서는 배경 이미지 위치 고정 */
+        background-attachment: fixed;
+        /* 하얀여백 없애기 */
+        background-size: cover;
+        background-position: center bottom;
+        height:76vw;
+        flex-flow:row nowrap;
+        /* 이미지를 오른쪽으로 밀어버림 */
+        justify-content: flex-end;
+        padding:4.2vw;
+    }
+    /* 태블릿 s6 왼쪽에서 날아오는 애니메이션 */
+    section.s6 .pick_txt {
+        width: 35vw;
+        order:1;
+        top:14%; left:25%;
+        /* 글씨를 오른쪽으로 배치 */
+        text-align:right;
+        position:absolute;
+    }
+    section.s6 .pick_txt .pick_title {
+        display:block;
+        width:100%;
+        position: absolute;
+        text-align: right;
+    }
+    section.s6 .pick_txt .pick_title img {
+        width:70%;
+    }
+    section.s6 .pick_con {
+        position: absolute;
+        margin-top: 60%;
+    }
+    section.s6 .pick_txt h3 {
+        font-size:2.3vw;
+        line-height:2.8vw;
+        margin-top:2vw;
+        margin-bottom:0.5vw;
+    }
+    section.s6 .pick_txt p {
+        font-size:1.4vw;
+    }
+    section.s6 .pick_txt p span {
+        /* 줄바꿈 없음 */
+        display: inline;
+    }
+    section.s6 .pick_img {
+        order:2;
+        width:50vw;
+        margin-top: 14vw;
+        margin-left:0.8vw;
+    }
+    section.s6 .pick_txt a {
+        width:12vw;
+        height:3.8vw;
+        line-height:3.2vw;
+        font-size:14px;
+        font-weight:normal;
+        margin:0;
+        /* a태그를 오른쪽으로 옮김 */
+        margin-top:3.5vw;
+        float:right;
+    }
+    section.s6 .pick_txt a:hover {
+        color:#333;
+        background-color:#fff;
+    }
+    /* 태블릿버전 */
+    section.s7 {
+        background-image:url(../img/reserve_bg_pc.png);
+        background-size:auto 87%;
+        background-position:center bottom;
+        height:36.7vw;
+    }
+    section.s7 .centerBox { height:100%; }
+    section.s7 .magazine {
+        display:block;
+        width:100%; height:100%;
+        position:relative;
+    }
+    section.s7 .magazine .maga1 {
+        position:absolute;
+        /* top과 bottm은 부모의 높이에 따라서 이동 */
+        left:5%; bottom:45%;
+        /* 글자 위치 앞으로 적용 */
+        z-index:6;
+        width:50%;
+    }
+    section.s7 .magazine .maga2 {
+        position:absolute;
+        top:0; right:4%;
+        /* 사진 위치 글자보다 뒤로 적용 */
+        z-index:5;
+        width: 32.5%;
+    }
+    /* 매거진 자세히 보기 버튼 */
+    section.s7 a {
+        width:12vw;
+        line-height:3.2vw;
+        height:3.8vw;
+        left:30%; bottom: auto; top:50%;
+        font-weight:normal;
+    }
+    section.s7 a:hover {
+        background-color:#222;
+    }
+    /* 태블릿 s8 */
+    section.s8 {
+        height: 40vw;
+        /* 커피빈콩 잘라내기 */
+        overflow: hidden;
+    }
+    /* 이걸 써야 자리배치가 잘 됨 */
+    section.s8 .centerBox {
+        height:100%;
+        justify-content:space-between;
+        /* 글씨 위치 위로 올림 */
+        align-items: flex-start;
+        position:relative;
+        padding:0 3%;
+    }
+    section.s8 .store_img {
+        width:46%; height:92%;
+        margin: 0;
+    }
+    /* 이미지들 위치 조절 */
+    section.s8 .store_img .bean {
+        width: 80%;
+        top: -16%; left: 78%;
+    }
+    section.s8 .store_img .store1 {
+        width:82%;
+    }
+    section.s8 .store_img .store2 {
+        /* 위치 조절 */
+        right:0;
+    }
+    section.s8 .store_txt {
+        text-align:left;
+        margin-top:9vw;
+        white-space:nowrap;
+        letter-spacing: -1px;
+        /* 매장이미지보다 앞으로가기 */
+        z-index: 10;
+        /* 가로길이를 줘야 애니 left right가 됨 */
+        width:45vw;
+    }
+    section.s8 .store_txt .txt1 {
+        opacity: 1;
+        top:0;
+        /* left:300%; */
+        transform:translateX(0%);
+    }
+    section.s8 .store_txt h3 {
+        font-size:2.8vw;
+    }
+    section.s8 .store_txt h4 {
+        font-size:1.8vw;
+        font-weight:bold;
+    }
+    /* 글씨 간격 조절 */
+    section.s8 .store_txt .txt2 {  
+        position:absolute;
+        margin-top: 18%;
+        /* left:200%; */
+        transform:translateX(0);
+    }
+    section.s8 .store_txt p {
+        opacity: 1;
+        font-size:1.6vw;
+        margin-top: 2.5%;
+        /* 한번 더 감쌌기 때문에 여기에 다시 씀 */
+        position:relative;
+        left:0%;
+        transform: translateX(0);
+    }
+    /* 매장찾기 버튼 */
+    section.s8 .store_txt a {
+        width:10vw;
+        height:3.2vw;
+        line-height:2.8vw;
+        font-size:14px;
+        font-weight:normal;
+        margin:0;
+        margin-top:50%;
+        border-radius: 5px;
+        /* left:300%; */
+        transform:translateX(0);
+    }
+    section.s8 a:hover {
+        background-color: #222;
+        color:#fff;
+    }
+    /* 매장 이미지 */
+    section.s8 .store_icon {
+        width: 23%;
+        right:7%; left: auto;
+        /* 매장이미지 뒤로 가기 */
+        z-index: 8;
+    }
+    /* 태블릿버전 footer */
+    footer .centerBox {
+        width: 100%;
+        margin:0 auto;
+        position: relative;
+        /* 왼쪽 오른쪽 여백 */
+        padding: 0 8%;
+    }
+    footer .sitemap {
+        padding-bottom:5vw;
+        padding-top: 2vw;
+    }
+    footer .sitemap .sitemap_list > ul {
+        /* 행기준, 자식객체 줄바꿈 허용 */
+        flex-flow:row wrap;
+        /* 왼쪽기준 나란히 나열 */
+        justify-content:flex-start;
+        margin:0 auto;
+        /* 측면에 스타벅스 로고 때문임 */
+        width: 87%;
+        padding-top: 2vw;
+    }
+    footer .sitemap .sitemap_list > ul > li:first-child {
+        display: none;
+    }
+    footer .sitemap .sitemap_list ul li {
+        /* 태블릿에서 추가함/pc에서는 수정해야함 */
+        width:22vw;
+    }
+    /* 태블릿 footer영역의 .sitemap_list의 4번째, 5번째 메뉴 영역 위쪽 여백 */
+    footer .sitemap .sitemap_list > ul > li:nth-last-child(-n+2){
+        margin-top:3vw;
+    }
+    footer .sitemap .sitemap_list ul li a {
+        background-color: transparent;
+        padding:0.6vw 0;
+        /* 테두리 없음 */
+        border-bottom:none;
+        white-space:nowrap;
+    }
+    footer .sitemap .sitemap_list ul li a:hover {
+        text-decoration:underline;
+    }
+    /* 태블릿 버전에서는 메뉴 오른쪽의 아래 화살표 안보임 */
+    footer .sitemap .sitemap_list ul li a i {
+        display: none;
+    }
+    /* 서브메뉴 보임 */
+    footer .sitemap .sitemap_list ul li .sub {
+        display: block;
+    }
+    footer .sitemap .sitemap_list ul li .sub li a {
+        background-color: transparent;
+        padding:0.1vw 0 ;
+        color:#fff;
+        font-size: 12px;
+    }
+    footer .sitemap .footer_logo {
+        display: block;
+        width:1.4%;
+        position:absolute;
+        right: 14%;   top:10%;
+    }
+    /* 태블릿버전에서는 home, singn in, join us 안보임 */
+    footer .sitemap .footer_btn { display: none; }
+    footer .awards {
+        padding:1.2vw 0 2vw;
+    }
+    /* 태블릿버전에서는 슬라이드 보임 */
+    footer .awards .swiper { 
+        display: block; 
+    }
+    /* 태블릿버전에서는 안보임 */
+    footer .awards .awards_list {
+        display: none;
+    }
+    footer .info {
+        padding-bottom:0;
+    }
+    footer .info .user {
+        padding:2vw 0  1vw;
+        /* 내가 추가 */
+        display: flex;
+        /* 줄바꿈 허용 */
+        flex-flow: row wrap;
+        justify-content: center;
+        /* 글자 내려감 방지 */
+        white-space: nowrap;
+    }
+    footer .info .user a {
+        padding:0 9px;
+        letter-spacing: -1px;
+    }
+    footer .info .user a:hover {
+        text-decoration:underline;
+    }
+    footer .info .user_btn a {
+        width:120px;
+        margin: 0.6vw 0.1vw;
+        height:35px;
+        line-height:28px;
+    }
+    footer .info .user_btn a:hover {
+        text-decoration:underline;
+    }
+    footer .info address {
+        margin:0.8px;
+        padding:0;
+        padding-top:1vw;
+        line-height:3.8vw;
+    }
+    footer .info address br { display:none; }
+    /* 주소영역 띄어쓰기 */
+    footer .info address span {
+        padding:0.5vw;
+    }
+    footer .info p {
+        padding: 0.5vw;
+        padding-bottom:3vw;
+        margin:0;
+    }
+    /* 태블릿(tablet)버전 애니메이션 */
+    .ani2 {
+        left:-150%;
+        opacity:1;
+        transition:left 1.2s;
+    }
+    .ani3 {
+        right:-150%;
+        opacity:1;
+        transition:right 1.2s;
+    }
+    .ani4 {
+        opacity:1;
+        transition:none;
+    }
+    .ani5 {
+        /* 오른쪽에서 날아오는 애니메이션 */
+        opacity:1;
+        top:5%;
+        left:300%;
+        transition:left 1.2s;
+    }
+    .ani6 {
+        /* 애니메이션 없음 */
+        opacity:1;
+        top:0;
+        transition:none;
+    }
+    .ani7 {
+        /* 애니메이션 없음 */
+        opacity:1;
+        top:0;
+        transition:none;
+    }
+    .ani8 {
+        /* 매장찾기 버튼이 오른쪽에서 날아오는 애니메이션 */
+        opacity:1;
+        top:0%;
+        left:300%;
+        transition:left 1.2s;
+    }
+    .ani9 {
+        /* 서서히 나타나는 애니메이션 */
+        opacity:0;
+        transition:opacity 1.2s;
+    }
+    .ani10 {
+        /* 왼쪽에서 날아오는 애니메이션 */
+        left:-250%;
+        opacity:1;
+        transition:left 1.8s;
+    }
+    .ani11 {
+        /* Store 글자들이 오른쪽에서 날아오는 애니메이션 */
+        opacity:1;
+        top:5%;
+        left:300%;
+        transition:left 1.2s;
+    }
+    .ani2.active {
+        left:12%;
+    }
+    .ani3.active {
+        right:9%;
+    }
+    .ani4.active {
+        left:25%;
+    }
+    /*  */
+    .ani5.active {
+        top:0;
+        left:0;
+    }
+    .ani6.active {
+        opacity:1;
+        top: 0;
+        left:0;
+    }
+    .ani7.active {
+        opacity:1;
+        top:1vw;
+        left:0;
+    }
+    /*  */
+    .ani8.active {
+        opacity:1;
+        top:1vw;
+        left:0;
+    }
+    .ani9.active {
+        opacity:1;
+    }
+    .ani10.active {
+        left:0;
+    }
+    /*  */
+    .ani11.active {
+        left:0;
+    }
+    .delay1 { transition-delay:0.1s; }
+    .delay2 { transition-delay:0.2s; }
+    .delay3 { transition-delay:0.3s; }
+    .delay4 { transition-delay:0.4s; }
+    /* 태블릿에서 추가했으므로 pc에서 자동으로 됨 */
+    .delay5 { transition-delay:0.1s; }
+    .delay6 { transition-delay:0.2s; }
 }
 
 /* 미디어 쿼리 - 분기점(breakpoint) - PC 버전 */
 @media screen and (min-width:1440px) {
+    header {
+        height:120px;
+        /* 내가 추가 */
+        border-top: 2px solid #000;
+        position: fixed;
+        padding-top: 0;
+    }
+    header .centerBox {
+        width:1100px;
+        height:120px;
+        margin: 0 auto;
+    }
+    header .centerBox .logo {
+        width:75px; height:75px;
+    }
+    /* pc에서는 안보임 */
+    header .centerBox .menu_area {
+        display:flex;
+        flex-flow:column nowrap;
+        /* 자식객체를 오른쪽에 배치 */
+        align-items: end;
+    }
+    header .centerBox .menu_area .header_icon { display: none; }
+    /* pc에서는 보임 */
+    header .centerBox .menu_area .topMenu { 
+        display:block;
+        /* 자식 객체 search_area가 position:absolute임 */
+        position:relative;
+        margin-top: 15px;
+    }
+    header .centerBox .menu_area .topMenu ul {
+        width:480px;
+        /* 버튼 누를때 밀리라는 의미 */
+        float:right;
+        display: flex;
+        flex-flow:row nowrap;
+        justify-content:space-between;
+        align-items: center;
+        margin-right:50px;
+    }
+    header .centerBox .menu_area .topMenu ul li a {
+        font-size:13px;
+        padding:0 15px;
+        border-right: 1px solid #ddd;
+        /* 글자 줄바꿈 */
+        white-space: nowrap;
+    }
+    header .centerBox .menu_area .topMenu ul li:hover a {
+        text-decoration: underline;
+    }
+    /* header .topMenu의 마지막 li a태그의 border-right 지우기 */
+    header .centerBox .menu_area .topMenu ul li:last-child a {
+        border-right: none;
+    }
+    header .centerBox .menu_area .topMenu .search_area {
+        position:absolute;
+        border:1px solid #ccc;
+        background-color: #fff;
+        width:34px; height:34px;
+        border-radius:5px;
+        padding:5px;
+        /* .search_area 영역을 벗어난 객체는 모두 숨김 */
+        overflow:hidden;
+        /* 부모객체 topMenu 기준으로 위치 설정 */
+        right:0; top:-6px;
+    }
+    header .centerBox .menu_area .topMenu .search_area input {
+        border:none;
+        background-color: transparent;
+        font-size: 12px;
+        width:130px; height: 20px;
+        padding:0 10px;
+        position:absolute;
+        /* 부모객체 .search_area를 기준으로 위치 설정 */
+        /* 35px이 떨어지는 그 사이에 돋보기 버튼이 있어야 함 */
+        right:35px; top:5px;
+    }
+    /* header의 검색영역의 돋보기 버튼 */
+    header .centerBox .menu_area .topMenu .search_area a {
+        position:absolute;
+        /* 부모객체 .search_area를 기준으로 위치 설정 */
+        right:5px; top:5px;
+        width: 20px; height: 21px;
+        padding: 0;
+    }
+
+    /* pc버전 글로벌 내비게이션 */
+    header .centerBox .menu_area .menu { 
+        display: block; 
+        margin-top: 20px;
+        width: 870px;
+    }
+    /* pc버전 글로벌 내비게이션 주메뉴 - 자식선택자(>) */
+    header .centerBox .menu_area .menu nav > ul {
+        display:flex;
+        flex-flow:row nowrap;
+        justify-content:space-between;
+    }
+    header .centerBox .menu_area .menu nav > ul > li > a {
+        font-size:14px;
+        padding: 10px 20px 40px;
+        white-space:nowrap;
+    }
+    header .centerBox .menu_area .menu nav > ul > li:hover > a {
+        color:#669900;
+        background-color: #2c2a29;
+        text-decoration:underline;
+    }
+    /* pc버전 글로벌 내비게이션 서브메뉴 */
+    header .centerBox .menu_area .menu nav .sub { 
+        /* 브라우저 기준으로 위치 설정 */
+        position:absolute;
+        /* 서브메뉴 높이 조절(header의 높이에 맞추되 선을 가리기 위해 줄이기) */
+        top:118px; left:0;
+        width:100%;
+        background-color:#2c2a29;
+        padding: 20px;
+        display: none;
+    }
+    header .centerBox .menu_area .menu nav .sub .centerBox {
+        align-items: baseline;
+        justify-content: flex-start;
+        height: auto;
+    }
+    header .centerBox .menu_area .menu nav .sub li {
+        /* 서브메뉴 위치 간격 조정 */
+        margin-right: 150px;
+    }
+    header .centerBox .menu_area .menu nav .sub li a {
+        font-size:12px;
+        color:#999;
+        margin-bottom:5px;
+        white-space: nowrap;
+    }
+    /* 첫번째 a태그에게만 적용 */
+    header .centerBox .menu_area .menu nav .sub li a:first-child {
+        color:#fff;
+        font-size:14px;
+        margin-bottom: 15px;
+    }
+    header .centerBox .menu_area .menu nav .sub li a:hover {
+        text-decoration: underline;
+    }
+    /* pc에서는 안보임/모바일에서는 보임 */
+    header .centerBox .menu_area .mobile_menu { display:none; }
+    /* pc버전 section */
+    section .centerBox {
+        flex-flow:row nowrap;
+        align-items:center;
+        justify-content:center;
+        /* 전체 적용 */
+        width: 1100px;
+        margin: 0 auto;
+    }
+    /* pc버전의 모든 <자세히보기>버튼에 애니메이션 설정 */
+    section a {
+        /* all : 모든 속성에 대해 애니메이션 설정, 1.2s = 0.5초(second) */
+        /* transition:all 1.2s; */
+        /* 배경색, 글자색 속성에 대해 애니메이션 설정 */
+        transition:background-color 1.2s, color 1.2s;
+        border-radius: 5px;
+    }
+    section a:hover {
+        text-decoration:underline;
+        color: #fff;;
+        background-color: #1a3c34;
+    }
+    section.s1 {
+        background-image: url(../img/2024_newYear_top_bg.jpg);
+        height:32vw;
+        padding:0;
+        border-top: 2px solid #111;
+        /* header와 겹치지 않게 haeder 높이만큼 띄워서 설정 */
+        margin-top:120px;
+    }
+    section.s1 .centerBox {
+        width: 100%;
+        height:32vw;
+    }
+    /* 왼쪽 타이틀 이미지 */
+    section.s1 .moment {
+        width:15vw;
+        margin:0;
+    }
+    /* pc버전 section.s1 자세히보기 버튼 */
+    section.s1 .moment a { 
+        display:block;
+        margin:2.6vw auto 0;
+        width:6.2vw;  height:2.2vw;
+        /* 글자 높이 위치 조정 */
+        line-height :1.9vw;
+        font-weight:normal;
+        font-size:15px;
+        border-radius:5px;
+    }
+    /* 컵 3개 정렬 */
+    section.s1 .drink {
+        flex-flow:row nowrap;
+        position: relative;
+        /* 브라우저의 반이 음료수 */
+        width:50%;
+        margin-left:5vw;
+    }
+    /* pc컵 보임 */
+    section.s1 .drink .pc_drink {
+        display: block;
+    }
+    /* 모바일컵 안보임 */
+    section.s1 .drink .mobile_drink {
+        display: none;
+    }
+    /* 푸른용 헤이즐넛 라떼 */
+    section.s1 .drink .drink1 {
+        width:43%;
+        position:absolute;
+        /* 부모 영역에서 조금 왼쪽으로 밀기 */
+        left:-1vw; 
+        top:50%;
+        transform:translateY(-58%);
+    }
+    /* 푸른용 클래식 밀크티 */
+    section.s1 .drink .drink2 {
+        position:absolute;
+        width:35%;
+        left:34%;  top:0;
+    }
+    /* 핑크 폼 딸기라떼 */
+    section.s1 .drink .drink3 {
+        position:absolute;
+        width:34%;
+        right:8%; top:0;    /*top:50%와 0은 차이가 없음*/
+        transform:translateY(-70%);
+    }
+    /* 모바일버전 자세히보기 안보임 */
+    section.s1 .drink a {
+        display:none;
+    }
+    section.s2 { height:70px; }
+    /* pc버전 공지사항 & 프로모션 배경 */
+    section.s2 .s2_bg {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    section.s2 .s2_bg .black_bg { width:54.8%; }
+    section.s2 .s2_bg .white_bg { width:45.2%; }
+    /* 글자 위치 옮김 */
+    section.s2 .centerBox {
+        width: 1100px;
+        height: 70px;
+        left: 50%;
+        transform:translateX(-50%);
+        justify-content:flex-start;
+    }
+    /* 공지사항 & 프로모션 배경 색 길이 다르게 조절 */
+    section.s2 .centerBox .notice { 
+        width:54.8%; 
+        /* width:61.8%;  */
+    }
+    section.s2 .centerBox .promotion { 
+        width:45.2%; 
+        /* width:37.2%; */
+        /* 내가 추가 */
+        justify-content: space-between;
+    }
+    section.s2 .centerBox .promotion p {
+        margin-left: 3vw;
+    }
+    section.s2 .centerBox .promotion .btn {
+        padding: 0;
+        margin-left:4vw;
+    }
+    /* 공지사항 제목 보임*/
+    section.s2 .notice h3 {
+        display: block;
+    }
+    /* 공지사항 스피커 안보임 */
+    section.s2 .notice .mobile_title {
+        display: none;
+    }
+    /* 자식선택자(>) 글자 간격 조정 */
+    section.s2 .centerBox > div {
+        padding: 0;
+        /* + 버튼 왼쪽으로 밀기 */
+        /* padding-right: 5%; */
+        width:50%;
+    }
+    section.s2 div p {
+        font-size: 14px;
+        /* 간격붙이고 ...없애기 */
+        padding:0;
+        /* 내가 붙임 */
+        overflow:visible;
+    }
+    section.s2 div a {
+        margin-top: 0;
+        line-height:0;
+        transform: none;
+    }
+    section.s2 div a:hover {
+        /* 배경 투명 transparent */
+        background-color: transparent;
+    }
     
+    /* pc버전 특별한 혜택, 회원가입, 로그인 */
+    section.s3 {
+        /* 내가 추가, 위아래 간격 줄임 */
+        padding: 1.5vw 0 0;
+    }
+    section.s3 .rewards_logo {
+        width:16%;
+        /* 내가 추가, 로고위치 조정 */
+        padding-bottom: 1vw;
+    }
+    section.s3 .rewards_txt {
+        width:76%;
+        margin: 0;
+    }
+    /* pc버전에서는 줄바꿈(br)태그 안보임 */
+    section.s3 .rewards_txt br {
+        display:none;
+    }
+    section.s3 .rewards_txt .pc_br {
+        display: block;
+    }
+    /* 옆으로 정렬 */
+    section.s3 .rewards_txt .flex {
+        flex-flow:row nowrap;
+        /* 텍스트 왼쪽으로 밀어넣기 */
+        text-align: left;
+    }
+    section.s3 .rewards_txt .flex h2 {
+        font-size:1.4vw;
+    }
+    section.s3 .rewards_txt .flex p {
+        font-size:0.9vw;
+    }
+    /* 회원가입, 로그인 버튼 */
+    section.s3 .rewards_txt a {
+        width:4.8vw;
+        /* 버튼 박스 높이 조절 */
+        line-height: 1.8vw;
+        margin:0 0.2vw;
+        border-radius: 5px;
+    }
+    /* 회원가입 로그인 버튼 위치 아래로 */
+    section.s3 .rewards_txt .rewards_top .rewards_btn {
+        margin-top: 2.1vw;
+    }
+    section.s3 .rewards_txt .rewards_bottom {
+        margin-top:1vw;
+    }
+    section.s3 .rewards_txt .rewards_bottom p {
+        font-size: 0.75vw;
+    }
+    /* e 카드 선물 버튼 */
+    section.s3 .rewards_txt .rewards_bottom a {
+        width: 10vw;
+    }
+    section.s4 {
+        background-image: url(../img/2024_newYear_promotion_bg.jpg);
+        height:30vw;
+        position:relative;
+    }
+    section.s4 .beans_img {
+        width:15vw;
+        margin:0 auto;
+        position:absolute;
+        /* 자리배치 */
+        top:14%;
+        /* 왼쪽에서 얼만큼 올건지 지정 */
+        /* left:23%; */
+    }
+    section.s4 .beans_img .mobile_beans {
+        display:none;
+    }
+    section.s4 .beans_img .pc_beans {
+        display:block;
+    }
+    section.s4 .beans_txt {
+        position:absolute;
+        text-align: left;
+        /* 자리배치 */
+        top:24%;
+        /* 오른쪽에서 얼만큼 올건지 지정 */
+        /* right:23%; */
+    }
+    section.s4 .beans_txt .s4_m_br {
+        display:none;
+    }
+    section.s4 .beans_txt strong {
+        font-size:1vw;
+        opacity:0.5;
+    }
+    section.s4 .beans_txt h2 {
+        font-size:1.6vw;
+        margin:0;
+    }
+    section.s4 .beans_txt p {
+        opacity:0.8;
+    }
+    section.s4 .beans_txt a {
+        border-radius:5px;
+        /* 버튼 가로 크기 조절 */
+        width:6.5vw;
+        line-height:2vw;
+        height:2.2vw;
+        font-size:14px;
+        font-weight:normal;
+        margin:0;
+        margin-top: 2.5vw;
+    }
+    section.s4 .beans_txt a:hover {
+        background-color:#6a501a;
+        color:#fff;
+    }
+    section.s5 {
+        background-image:url(../img/231221_pc_reserve_bg.jpg);
+        height:20.84vw;
+        background-position:top center;
+    }
+    section.s5 .pc_guatemala {
+        display:block;
+        position:absolute;
+        top:19%;
+        left:32%;
+    }
+    section.s5 div a {
+        width:6.5vw;
+        height:2.2vw;
+        line-height: 2vw;
+        font-weight: normal;
+        left: 43%; bottom: 33%;
+        font-size: 14px;
+    }
+    section.s5 div a:hover {
+        color: #333;
+        background-color: #cd9757;
+    }
+    section.s6 {
+        background-image:url(../img/231222_1_pc_pick_bg.jpg);
+        height:43vw;
+        flex-flow:row nowrap;
+        /* 이미지를 오른쪽으로 밀어버림 */
+        justify-content: flex-end;
+        padding:4.5vw;
+    }
+    /* pc버전 왼쪽에서 날아오는 애니메이션 */
+    section.s6 .pick_txt {
+        order:1;
+        top:16%; left:30%;
+        /* 글씨를 오른쪽으로 배치 */
+        text-align:right;
+        width:20vw;
+        white-space: nowrap;
+    }
+    section.s6 .pick_txt .pick_title {
+        display:block;
+        width:100%;
+    }
+    section.s6 .pick_txt .pick_title img {
+        width:initial;
+    }
+    section.s6 .pick_txt h3 {
+        font-size:1.4vw;
+        line-height:1.8vw;
+        margin-top:0vw;
+        margin-bottom:0.5vw;
+    }
+    section.s6 .pick_txt p {
+        font-size:0.8vw;
+    }
+    section.s6 .pick_txt p span {
+        /* 줄바꿈 없음 */
+        display: inline;
+    }
+    section.s6 .pick_img {
+        order:2;
+        width:47vw;
+        margin-right:3.5vw;
+        /* 태블릿 margin 설정 없앰 */
+        margin-top: 0;
+    }
+    section.s6 .pick_txt a {
+        width:6.5vw;
+        height:2.2vw;
+        line-height:2vw;
+        font-size:14px;
+        font-weight:normal;
+        margin:0;
+        /* a태그를 오른쪽으로 옮김 */
+        margin-top:2vw;
+        float:right;
+    }
+    section.s6 .pick_txt a:hover {
+        color:#333;
+        background-color:#fff;
+    }
+    section.s7 {
+        background-image:url(../img/reserve_bg_pc.png);
+        background-size:100%;
+        background-position:center bottom;
+        height:20.84vw;
+    }
+    section.s7 .centerBox { height:100%; }
+    section.s7 .magazine {
+        display:block;
+        width:100%; height:100%;
+        position:relative;
+    }
+    section.s7 .magazine .maga1 {
+        position:absolute;
+        /* top과 bottm은 부모의 높이에 따라서 이동 */
+        left:20%; bottom:40%;
+        /* 글자 위치 앞으로 적용 */
+        z-index:6;
+        width: auto;
+    }
+    section.s7 .magazine .maga2 {
+        position:absolute;
+        top:0; right:7%;
+        /* 사진 위치 글자보다 뒤로 적용 */
+        z-index:5;
+        width: auto;
+    }
+    section.s7 a {
+        width:6.5vw;
+        line-height:1.8vw;
+        height:2vw;
+        left:42.3%; bottom:24%;
+        font-weight:normal;
+        margin-top: 3.5vw;
+    }
+    section.s7 a:hover {
+        background-color:#222;
+    }
+
+    section.s8 {
+        height: 20.84vw;
+        /* 커피빈콩 잘라내기 */
+        overflow: hidden;
+    }
+    /* 이걸 써야 자리배치가 잘 됨 */
+    section.s8 .centerBox {
+        height:100%;
+        justify-content:space-around;
+        /* 글씨 위치 위로 올림 */
+        align-items: flex-start;
+        position:relative;
+        padding:0;
+    }
+    section.s8 .store_img {
+        width:40%; height:95%;
+        margin: 0;
+    }
+    /* 이미지들 위치 조절 */
+    section.s8 .store_img .bean {
+        width: 80%;
+        top: -16%; left: 80%;
+    }
+    section.s8 .store_img .store1 {
+        width:82%;
+    }
+    section.s8 .store_img .store2 {
+        /* 위치 조절 */
+        right:0;
+    }
+    section.s8 .store_txt {
+        text-align:left;
+        margin-top:4vw;
+        white-space:nowrap;
+        /* 동그라미 이미지랑 간격 띄우기 */
+        width:23vw;
+    }
+    section.s8 .store_txt h3 {
+        font-size:1.4vw;
+    }
+    section.s8 .store_txt h4 {
+        font-size:1vw;
+        font-weight:bold;
+    }
+    section.s8 .store_txt p {
+        font-size:0.8vw;
+        margin-top: 2.5%;
+        /* 글자 간격조절용 */
+        top:0;
+    }
+    /* 매장찾기 버튼 */
+    section.s8 .store_txt a {
+        width:6.5;
+        height:2.2vw;
+        line-height: 2vw;
+        font-size:14px;
+        font-weight:normal;
+        margin:0;
+        margin-top:10vw;
+        transform:translateX(0);
+    }
+    section.s8 a:hover {
+        background-color: #222;
+        color:#fff;
+    }
+    /* 매장 이미지 */
+    section.s8 .store_icon {
+        width: 20%;
+        right:-5%; left: auto;
+    }
+    /* pc버전 footer */
+    footer .centerBox {
+        width: 1100px;
+        margin:0 auto;
+        /* 수정 */
+        padding: 0;
+        position: relative;
+    }
+    footer .sitemap {
+        padding-bottom:3vw;
+        padding-top: 0;
+    }
+    footer .sitemap .sitemap_list > ul {
+        flex-flow:row nowrap;
+        justify-content:space-between;
+        /* 측면에 스타벅스 로고 때문임 */
+        width: 87%;
+        margin: 0;
+        padding-top: 1.5vw;
+    }
+    footer .sitemap .sitemap_list > ul > li:first-child {
+        display: none;
+    }
+    footer .sitemap .sitemap_list ul li {
+        /* 태블릿에서 추가해서 pc 수정 */
+        width:auto;
+    }
+    /* pc버전 footer영역의 .sitemap_list의 4번째, 5번째 메뉴 영역 위쪽 여백 */
+    footer .sitemap .sitemap_list > ul > li:nth-last-child(-n+2){
+        margin-top:0;
+    }
+    footer .sitemap .sitemap_list ul li a {
+        background-color: transparent;
+        padding:0.6vw 0;
+        /* 테두리 없음 */
+        border-bottom:none;
+    }
+    footer .sitemap .sitemap_list ul li a:hover {
+        text-decoration:underline;
+    }
+    /* pc 버전에서는 메뉴 오른쪽의 아래 화살표 안보임 */
+    footer .sitemap .sitemap_list ul li a i {
+        display: none;
+    }
+    /* 서브메뉴 보임 */
+    footer .sitemap .sitemap_list ul li .sub {
+        display: block;
+    }
+    footer .sitemap .sitemap_list ul li .sub li a {
+        background-color: transparent;
+        padding:0.1vw 0 ;
+        color:#fff;
+        font-size: 12px;
+    }
+    footer .sitemap .footer_logo {
+        display: block;
+        width:1.3%;
+        position:absolute;
+        right: 0;   top:15%;
+    }
+    /* pc버전에서는 home, singn in, join us 안보임 */
+    footer .sitemap .footer_btn { display: none; }
+    footer .awards {
+        padding:1.2vw 0 2vw;
+    }
+    /* pc버전에서는 슬라이드 안보임/모바일에서는 보임 */
+    footer .awards .swiper { display: none; }
+    /* pc버전에서는 보임/모바일에서는 안보임 */
+    footer .awards .awards_list {
+        display: flex;
+    }
+    footer .info {
+        padding-bottom:0;
+    }
+    footer .info .user {
+        padding:2vw 0  0;
+        /* 내가 추가 */
+        display: flex;
+        justify-content: space-between;
+    }
+    footer .info .user a {
+        padding:0 9px;
+        letter-spacing: -1px;
+    }
+    footer .info .user a:hover {
+        text-decoration:underline;
+    }
+    footer .info .user_btn a {
+        width:120px;
+        margin: 0.6vw 0.1vw;
+        height:35px;
+        line-height:28px;
+    }
+    footer .info .user_btn a:hover {
+        text-decoration:underline;
+    }
+    footer .info address {
+        margin:0.8px;
+        padding:0;
+        padding-top:1vw;
+        line-height: normal;
+    }
+    footer .info address br { display:none; }
+    /* 주소영역 띄어쓰기 */
+    footer .info address span {
+        padding:0.5vw;
+    }
+    footer .info p {
+        padding: 0.5vw;
+        padding-bottom:3vw;
+        margin:0;
+    }
+    /* pc버전 애니메이션 */
+    .ani2.active {
+        left:23%;
+    }
+    .ani3.active {
+        right:23%;
+    }
 }
