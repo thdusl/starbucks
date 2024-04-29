@@ -2385,6 +2385,7 @@ section, footer {
         padding:2vw 0  0;
         /* 내가 추가 */
         display: flex;
+        flex-flow:row nowrap;
         justify-content: space-between;
     }
     footer .info .user a {
